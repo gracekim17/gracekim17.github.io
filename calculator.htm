@@ -1,5 +1,123 @@
 <html>
-<body>
-Empty.    
-</body>
+    <style>
+        #title{
+            color:black;
+        }
+        .num{
+            color:pink;
+            background-color: black;
+            width: 10%;
+            height: 10%;
+            font-size: 300%;
+        }
+        .ope{
+            color: white;
+            background-color: gray;
+            width: 10%;
+            height: 10%;
+            font-size: 300%;
+        }
+    </style>
+    <body style = "background-color:powderblue">
+        <h1 id="title"> Calculator </h1>
+        <div id="workspace">Equation: </div>
+        <div id="answer">Answer: </div>
+        <input id="input" type="text"/>
+
+        <div id="numberButtons">
+            <div style="display:block;">
+            <input class="num" type="button" onclick="buttonClick(value);" value="1"/>
+            <input class="num" type="button" onclick="buttonClick(value);" value="2"/>
+            <input class="num" type="button" onclick="buttonClick(value);" value="3"/>
+            </div>
+            <div style="display:block;">
+            <input class="num" type="button" onclick="buttonClick(value);" value="4"/>
+            <input class="num" type="button" onclick="buttonClick(value);" value="5"/>
+            <input class="num" type="button" onclick="buttonClick(value);" value="6"/>
+            </div>
+            <div style="display:block;">
+            <input class="num" type="button" onclick="buttonClick(value);" value="7"/>
+            <input class="num" type="button" onclick="buttonClick(value);" value="8"/>
+            <input class="num" type="button" onclick="buttonClick(value);" value="9"/>
+            </div>
+            <div style="display:block;">
+            <input class="num" type="button" onclick="buttonClick(value);" value="0"/>
+            </div>
+        </div>
+
+        <div id="operatorButtons">
+            <div style="display:block;">
+            <input class="ope" type="button" onclick="operatorButtonClick(value);" value = "*"/>
+            <input class="ope" type="button" onclick="operatorButtonClick(value);" value = "+"/>
+            <input class="ope" type="button" onclick="operatorButtonClick(value);" value = "-"/>
+            </div>
+            <div style="display:block;">
+            <input class="ope" type="button" onclick="operatorButtonClick(value);" value = "/"/>
+            <input class="ope" type="button" onclick="equalButtonClick();" value = "="/>
+            <input style="font-size: 15px" class="ope" type="button" onclick="clearButtonClick();" value = "Clear"/>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        var breakCounter = 0;
+        var opCount = 0;
+        var operator = "";
+        var value1 = 0;
+        var value2 = null;
+        function buttonClick(value){
+            document.getElementById("workspace").innerText += value;
+            if(breakCounter == 0){
+                document.getElementById("input").value += value;
+            } else {
+                document.getElementById("input").value = value;
+                breakCounter = 0;
+            }
+        }
+        function operatorButtonClick(value){
+            breakCounter = 1;
+            document.getElementById("workspace").innerText += value;
+            if(opCount == 0){
+                value1 = document.getElementById("input").value * 1;
+            } else {
+                value2 = document.getElementById("input").value * 1;
+                if(operator == "*"){
+                    value1 = value1 * value2;
+                } else if(operator == "/"){
+                    value1 = value1 / value2;
+                } else if(operator == "+"){
+                    value1 = value1 + value2;
+                } else {
+                    value1 = value1 - value2;
+                }
+            }
+            document.getElementById("input").value = value;
+            operator = value;
+            opCount++;
+        }
+        function equalButtonClick(){
+            value2 = document.getElementById("input").value * 1;
+            document.getElementById("workspace").innerText += "=";
+            document.getElementById("input").value = "";
+            if(operator == "*"){
+                document.getElementById("answer").innerText += value1 * value2;
+            } else if(operator == "/"){
+                document.getElementById("answer").innerText += value1 / value2;
+            } else if(operator == "+"){
+                document.getElementById("answer").innerText += value1 + value2;
+            } else {
+                document.getElementById("answer").innerText += value1 - value2;
+            }
+        }
+        function clearButtonClick(){
+            var breakCounter = 0;
+            var opCount = 0;
+            var operator = "";
+            value1 = 0;
+            value2 = null;
+            document.getElementById("answer").innerText = "Answer: ";
+            document.getElementById("workspace").innerText = "Equation: ";
+            document.getElementById("input").value = "";
+        }
+    </script>
 </html>

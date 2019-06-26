@@ -1,0 +1,25 @@
+<html>
+    <style>
+        .full{
+            width: 90%;
+            height:90%;
+            background-color: white;
+        }
+    </style>
+    <body style="background-color:lightcyan">
+        <input style="padding:10px; background-color: blue; color: white; font-size: 20px;" onclick="setSrc();" type="button" value="Run"/>
+        <br> </br>
+        <div style="width: 50%; height: 100%; float: left;">
+            <textarea class="full" id="src"></textarea>
+        </div>
+        <div style="width:50%; height:100%; float: right;">
+            <iframe class="full" style="width:100%" id="frame" src="data:text/html,"></iframe>
+        </div>
+    </body>
+
+    <script>
+        function setSrc(){
+            document.getElementById("frame").src = "data:text/html," + document.getElementById("src").value;
+        }
+    </script>
+</html>

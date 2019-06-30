@@ -1,0 +1,39 @@
+<html>
+    <style>
+        #box{
+            position: absolute;
+            background-color: pink;
+            border: 2px solid black;
+            padding: 5px;
+        }
+    </style>
+    <body>
+        <div id="box"> Click me to move me. </div>
+    </body>
+
+    <script>
+    var elmt = document.getElementById("box");
+    var pos1 = 0, pos2 = 0, toX = 0, toY = 0;
+    var nFrames = 60;
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    document.onclick = 
+        async function (e) {
+            fromX = elmt.style.left.replace("px", "") * 1;
+            fromY = elmt.style.top.replace("px", "") * 1;
+            toX = (e.clientX - fromX) / nFrames;
+            toY = (e.clientY - fromY) / nFrames;
+
+            for (var i = 0; i <= nFrames; i++){
+                fromX += toX;
+                fromY += toY;
+                await sleep (1000/nFrames);
+                elmt.style.left = fromX;
+                elmt.style.top = fromY;
+            }
+        }
+    </script>
+</html>

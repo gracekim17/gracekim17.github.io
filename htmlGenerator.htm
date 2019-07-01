@@ -3,13 +3,14 @@
         body {
             margin: 0px;;
         }
+
         .parent {
             display: flex;
-            height: 100%;
+            height: 95%;
         }
+
         #dragbar{
             background-color: pink;
-            display: inline-block;
             cursor: col-resize;
             width: 3px;
         }
@@ -29,7 +30,6 @@
     </style>
     <body>
         <input style="padding:10px; background-color: blue; color: white; font-size: 20px;" onclick="setSrc();" type="button" value="Run"/>
-        <br> </br>
         <div class="parent">
             <div id="source">
                 <textarea class="full" id="src"></textarea>
@@ -65,7 +65,7 @@
                 case 3:  // right button
                     return;
             }
-            
+
             document.onmousemove = null;
             document.onmousedown = null;
         }

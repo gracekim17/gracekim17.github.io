@@ -1,0 +1,53 @@
+<html>
+    <style>
+        body {
+            margin: 5px;;
+        }
+        #dragbar{
+            position: absolute;
+            background-color: pink;
+            display: inline-block;
+            cursor: col-resize;
+            width: 2%;
+            height: 100%;
+        }
+        .displayWindows{
+            display: inline-block;
+            width: 49%;
+            height: 100%;
+        }
+        #source{
+            background-color: lightblue;
+        }
+        #viewer{
+            background-color: lightcoral;
+            float: right;
+        }
+    </style>
+    <body>
+        <div class="displayWindows" id="source"></div>
+        <div id="dragbar"></div>
+        <div class="displayWindows" id="viewer"></div>
+    </body>
+
+    <script>
+    var elmt = document.getElementById("dragbar");
+    var offsetX = 0, offsetY = 0;
+    var fromX = 0, fromY = 0;
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    elmt.onmousedown = function(mousedown) {
+        offsetX = mousedown.clientX - elmt.style.left.replace("px", "") * 1;
+        document.onmousemove = function (mousemove) {
+            elmt.style.left = (mousemove.clientX - offsetX) + "px";
+        }
+        document.onmouseup = function(){
+            document.onmousemove = null;
+            document.onmousedown = null;
+        }
+    }
+    </script>
+</html>

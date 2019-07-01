@@ -51,9 +51,21 @@
     
     dragbarElmnt.onmousedown = function() {
         document.onmousemove = function (e) {
+            switch (e.which) {
+                case 2:  // middle button
+                case 3:  // right button
+                    return;
+            }
+
             sourceElmnt.style.width = e.clientX + "px";
         }
-        document.onmouseup = function(){
+        document.onmouseup = function(e) {
+            switch (e.which) {
+                case 2:  // middle button
+                case 3:  // right button
+                    return;
+            }
+            
             document.onmousemove = null;
             document.onmousedown = null;
         }

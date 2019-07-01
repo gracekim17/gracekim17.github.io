@@ -1,25 +1,68 @@
 <html>
     <style>
+        body {
+            margin: 10px;;
+        }
+        .parent {
+            display: flex;
+            height: 100%;
+        }
+        #dragbar{
+            background-color: pink;
+            display: inline-block;
+            cursor: col-resize;
+            width: 15px;
+        }
+        #source{
+            background-color: lightblue;
+            width: 49%;
+        }
+        #viewer{
+            background-color: lightcoral;
+            flex: 1;
+        }
         .full{
             width: 90%;
             height:90%;
             background-color: white;
         }
     </style>
-    <body style="background-color:lightcyan">
+    <body>
         <input style="padding:10px; background-color: blue; color: white; font-size: 20px;" onclick="setSrc();" type="button" value="Run"/>
         <br> </br>
-        <div style="width: 50%; height: 100%; float: left;">
-            <textarea class="full" id="src"></textarea>
-        </div>
-        <div style="width:50%; height:100%; float: right;">
-            <iframe class="full" style="width:100%" id="frame" src="data:text/html,"></iframe>
+        <div class="parent">
+            <div id="source">
+                <textarea class="full" id="src"></textarea>
+            </div>
+            <div id="dragbar"></div>
+            <div id="viewer">
+                <iframe class="full" style="width:100%" id="frame" src="data:text/html,"></iframe>
+            </div>
         </div>
     </body>
 
     <script>
-        function setSrc(){
-            document.getElementById("frame").src = "data:text/html," + document.getElementById("src").value;
+    var dragbarElmnt = document.getElementById("dragbar");
+    var sourceElmnt = document.getElementById("source");
+    var offsetX = 0, offsetY = 0;
+    var fromX = 0, fromY = 0;
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    dragbarElmnt.onmousedown = function(mousedown) {
+        document.onmousemove = function (mousemove) {
+            sourceElmnt.style.width = mousemove.clientX;
         }
+        document.onmouseup = function(){
+            document.onmousemove = null;
+            document.onmousedown = null;
+        }
+    }
+
+    function setSrc(){
+            document.getElementById("frame").src = "data:text/html," + document.getElementById("src").value;
+    }
     </script>
 </html>

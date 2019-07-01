@@ -44,16 +44,14 @@
     <script>
     var dragbarElmnt = document.getElementById("dragbar");
     var sourceElmnt = document.getElementById("source");
-    var offsetX = 0, offsetY = 0;
-    var fromX = 0, fromY = 0;
-
+    
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
     
-    dragbarElmnt.onmousedown = function(mousedown) {
-        document.onmousemove = function (mousemove) {
-            sourceElmnt.style.width = mousemove.clientX;
+    dragbarElmnt.onmousedown = function() {
+        document.onmousemove = function (e) {
+            sourceElmnt.style.width = e.clientX + "px";
         }
         document.onmouseup = function(){
             document.onmousemove = null;

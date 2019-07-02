@@ -44,20 +44,22 @@
     <script>
     var dragbarElmnt = document.getElementById("dragbar");
     var sourceElmnt = document.getElementById("source");
+    var viewerElmnt = document.getElementById("frame");
     
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
     
     dragbarElmnt.onmousedown = function() {
+        console.log("mouse down");
         document.onmousemove = function (e) {
             switch (e.which) {
                 case 2:  // middle button
                 case 3:  // right button
                     return;
             }
-
             sourceElmnt.style.width = e.clientX + "px";
+            console.log("mouse down and mouse moving");
         }
         document.onmouseup = function(e) {
             switch (e.which) {
@@ -65,14 +67,17 @@
                 case 3:  // right button
                     return;
             }
-
             document.onmousemove = null;
             document.onmousedown = null;
+            console.log("mouse up");
+        }
+        viewerElmnt.onmousemove = function(e){
+            console.log("mouse moving in viewer element");
         }
     }
 
     function setSrc(){
-            document.getElementById("frame").src = "data:text/html," + document.getElementById("src").value;
+        document.getElementById("frame").src = "data:text/html," + document.getElementById("src").value;
     }
     </script>
 </html>

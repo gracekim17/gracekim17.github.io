@@ -12,7 +12,7 @@
         #dragbar{
             background-color: pink;
             cursor: col-resize;
-            width: 3px;
+            width: 10px;
         }
         #source{
             background-color: lightblue;
@@ -44,14 +44,12 @@
     <script>
     var dragbarElmnt = document.getElementById("dragbar");
     var sourceElmnt = document.getElementById("source");
-    var viewerElmnt = document.getElementById("frame");
     
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
     
     dragbarElmnt.onmousedown = function() {
-        console.log("mouse down");
         document.onmousemove = function (e) {
             switch (e.which) {
                 case 2:  // middle button
@@ -59,7 +57,6 @@
                     return;
             }
             sourceElmnt.style.width = e.clientX + "px";
-            console.log("mouse down and mouse moving");
         }
         document.onmouseup = function(e) {
             switch (e.which) {
@@ -69,10 +66,6 @@
             }
             document.onmousemove = null;
             document.onmousedown = null;
-            console.log("mouse up");
-        }
-        viewerElmnt.onmousemove = function(e){
-            console.log("mouse moving in viewer element");
         }
     }
 

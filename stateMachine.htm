@@ -1,0 +1,80 @@
+<html>
+    <style>
+    </style>
+    <body>
+        <script>
+            var stateAnother=0;
+            function gotoNextStateAnother() {
+                stateAnother++;
+                setTimeout(doStateMachineAnother, 1000);
+            }
+            
+            function doStateMachineAnother() {
+                switch(stateAnother) {
+                    case 0: console.log('1st state hit');
+                        break;
+                    case 1: console.log('2nd state hit'); 
+                        break;
+                    case 2: console.log('3nd state hit'); 
+                        break;
+                    case 3: console.log('4th state hit'); 
+                        break;
+                    case 4: console.log('5th state hit'); 
+                        break;
+                    case 5: console.log('6th state hit'); 
+                        break;
+                    case 6: console.log('7th state hit'); 
+                        break;
+                    case 7: console.log('8th state hit'); 
+                        break;                        
+                    case 8: console.log('9th state hit'); 
+                        break;                        
+                    case 9: console.log('10th state hit');
+                        break;                        
+                    case 10: console.log('statemachine completed');
+                        return;                        
+                }
+                gotoNextStateAnother();
+            }
+
+            var state=0;
+            function gotoNextState() {
+                state++;
+                setTimeout(doStateMachine, 1000);
+            }
+            function doStateMachine() {
+                switch(state) {
+                    case 0: 
+                        console.log('1st state hit');
+                        doStateMachineAnother();
+                        break;
+                    case 1: 
+                        console.log('2nd state hit'); 
+                        break;
+                    case 2: console.log('3nd state hit'); 
+                        break;
+                    case 3: console.log('4th state hit'); 
+                        break;
+                    case 4: console.log('5th state hit'); 
+                        break;
+                    case 5: console.log('6th state hit'); 
+                        break;
+                    case 6: console.log('7th state hit'); 
+                        break;
+                    case 7: console.log('8th state hit'); 
+                        break;                        
+                    case 8: console.log('9th state hit'); 
+                        break;                        
+                    case 9: console.log('10th state hit');
+                        break;                        
+                    case 10: console.log('statemachine completed');
+                        return;                        
+                }
+                gotoNextState();
+            }
+
+            doStateMachine();
+
+        </script>
+    </body>
+</html>

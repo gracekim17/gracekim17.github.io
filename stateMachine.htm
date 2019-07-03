@@ -75,25 +75,21 @@
                     case 10: console.log('statemachine completed');
                         return;                        
                 }
-                stateContext.next(stateContext);
+                stateContext.gotoNextState(stateContext);
             }
 
-            function gotoNextState(stateContext) {
-                if (stateContext.state != -1) {
-                    stateContext.state++;
-                }
-                setTimeout(function() { doStateMachine(stateContext); } , 500);
-            }
-
-            function StateContext(gotoNextFunction) {
-                this.next = gotoNextFunction;
+            function StateContext() {
+                this.gotoNextState = function (stateContext) {
+                        if (stateContext.state != -1) {
+                            stateContext.state++;
+                        }
+                        setTimeout(function() { doStateMachine(stateContext); } , 500);
+                    };
                 this.state=0;
                 this.statePending = -1;
             }
 
-            var stateContext = new StateContext(gotoNextState);
-
-            doStateMachine(stateContext);
+            doStateMachine(new StateContext());
 
         </script>
     </body>

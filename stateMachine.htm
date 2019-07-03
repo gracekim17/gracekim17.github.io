@@ -4,59 +4,56 @@
     <body>
         <script>
             var stateAnother=0;
-            function gotoNextStateAnother() {
+            function gotoNextStateAnother(completeFunction) {
                 stateAnother++;
-                setTimeout(doStateMachineAnother, 1000);
+                setTimeout(function() { 
+                    doStateMachineAnother(completeFunction); 
+                }, 500);
             }
             
-            function doStateMachineAnother() {
+            function doStateMachineAnother(completeFunction) {
                 switch(stateAnother) {
-                    case 0: console.log('1st state hit');
+                    case 0: console.log('1st stateAnother hit');
                         break;
-                    case 1: console.log('2nd state hit'); 
+                    case 1: console.log('2nd stateAnother hit'); 
                         break;
-                    case 2: console.log('3nd state hit'); 
+                    case 2: console.log('3nd stateAnother hit'); 
                         break;
-                    case 3: console.log('4th state hit'); 
+                    case 3: console.log('4th stateAnother hit'); 
                         break;
-                    case 4: console.log('5th state hit'); 
+                    case 4: console.log('5th stateAnother hit'); 
                         break;
-                    case 5: console.log('6th state hit'); 
+                    case 5: console.log('6th stateAnother hit'); 
                         break;
-                    case 6: console.log('7th state hit'); 
+                    case 6: console.log('7th stateAnother hit'); 
                         break;
-                    case 7: console.log('8th state hit'); 
+                    case 7: console.log('8th stateAnother hit'); 
                         break;                        
-                    case 8: console.log('9th state hit'); 
+                    case 8: console.log('9th stateAnother hit'); 
                         break;                        
-                    case 9: console.log('10th state hit');
+                    case 9: console.log('10th stateAnother hit');
                         break;                        
-                    case 10: console.log('statemachine completed');
+                    case 10: 
+                        console.log('statemachine completed');
+                        completeFunction();
                         return;                        
                 }
-                gotoNextStateAnother();
+                gotoNextStateAnother(completeFunction);
             }
 
             var state=0;
-            function gotoNextState() {
-                if (state != -1) {
-                    state++;
-                }
-                setTimeout(doStateMachine, 1000);
-            }
-
+            var statePending = -1;
             function doStateMachine() {
                 switch(state) {
-                    case -1:
-                        if (stateAnother == 10) {
-                            state = 0;                                
-                        }
+                    case statePending:
                         break;
                     case 0: 
                         console.log('1st state hit');
-                        doStateMachineAnother();
-                        state = -1;
-                        break;
+                        var nextState = 1;
+                        state = statePending;                        
+                        doStateMachineAnother(
+                            ()=> state = nextState);
+                            break;
                     case 1: 
                         console.log('2nd state hit'); 
                         break;
@@ -80,6 +77,13 @@
                         return;                        
                 }
                 gotoNextState();
+            }
+
+            function gotoNextState() {
+                if (state != -1) {
+                    state++;
+                }
+                setTimeout(doStateMachine, 500);
             }
 
             doStateMachine();

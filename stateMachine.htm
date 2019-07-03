@@ -43,7 +43,7 @@
 
             var state=0;
             var statePending = -1;
-            function doStateMachine() {
+            function doStateMachine(stateContext) {
                 switch(state) {
                     case statePending:
                         break;
@@ -76,17 +76,23 @@
                     case 10: console.log('statemachine completed');
                         return;                        
                 }
-                gotoNextState();
+                stateContext.next(stateContext);
             }
 
-            function gotoNextState() {
+            function gotoNextState(stateContext) {
                 if (state != -1) {
                     state++;
                 }
-                setTimeout(doStateMachine, 500);
+                setTimeout(function() { doStateMachine(stateContext); } , 500);
             }
 
-            doStateMachine();
+            function StateContext(gotoNextFunction) {
+                this.next = gotoNextFunction;
+            }
+
+            var stateContext = new StateContext(gotoNextState);
+
+            doStateMachine(stateContext);
 
         </script>
     </body>

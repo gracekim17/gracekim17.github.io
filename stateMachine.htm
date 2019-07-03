@@ -41,18 +41,17 @@
                 gotoNextStateAnother(completeFunction);
             }
 
-            var state=0;
-            var statePending = -1;
+
             function doStateMachine(stateContext) {
-                switch(state) {
-                    case statePending:
+                switch(stateContext.state) {
+                    case stateContext.statePending:
                         break;
                     case 0: 
                         console.log('1st state hit');
                         var nextState = 1;
-                        state = statePending;                        
+                        stateContext.state = stateContext.statePending;
                         doStateMachineAnother(
-                            ()=> state = nextState);
+                            ()=> stateContext.state = nextState);
                             break;
                     case 1: 
                         console.log('2nd state hit'); 
@@ -80,14 +79,16 @@
             }
 
             function gotoNextState(stateContext) {
-                if (state != -1) {
-                    state++;
+                if (stateContext.state != -1) {
+                    stateContext.state++;
                 }
                 setTimeout(function() { doStateMachine(stateContext); } , 500);
             }
 
             function StateContext(gotoNextFunction) {
                 this.next = gotoNextFunction;
+                this.state=0;
+                this.statePending = -1;
             }
 
             var stateContext = new StateContext(gotoNextState);

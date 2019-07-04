@@ -34,7 +34,7 @@
                     case 9: console.log('10th stateAnother hit');
                         break;                        
                     case 10: 
-                        console.log('statemachine completed');
+                        console.log('stateAnother machine completed');
                         completeFunction();
                         return;                        
                 }
@@ -72,7 +72,8 @@
                         break;                        
                     case 9: console.log('10th state hit');
                         break;                        
-                    case 10: console.log('statemachine completed');
+                    case 10: console.log('state machine completed');
+                        clearInterval(stateContext.interval_id);
                         return;                        
                 }
                 stateContext.gotoNextState(stateContext);
@@ -83,14 +84,15 @@
                         if (stateContext.state != -1) {
                             stateContext.state++;
                         }
-                        setTimeout(function() { doStateMachine(stateContext); } , 500);
                     };
                 this.state=0;
                 this.statePending = -1;
+                this.interval_id;
             }
 
-            doStateMachine(new StateContext());
-
+            var stateContext = new StateContext();
+            
+            stateContext.interval_id = setInterval(function() { doStateMachine(stateContext); } , 500);
         </script>
     </body>
 </html>

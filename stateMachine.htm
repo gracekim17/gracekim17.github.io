@@ -41,7 +41,6 @@
                 gotoNextStateAnother(completeFunction);
             }
 
-
             function doStateMachine(stateContext) {
                 switch(stateContext.state) {
                     case stateContext.statePending:
@@ -79,7 +78,7 @@
                 stateContext.gotoNextState(stateContext);
             }
 
-            function StateContext() {
+            var stateContext = new function StateContext() {
                 this.gotoNextState = function (stateContext) {
                         if (stateContext.state != -1) {
                             stateContext.state++;
@@ -88,11 +87,8 @@
                 this.state=0;
                 this.statePending = -1;
                 this.interval_id;
-            }
-
-            var stateContext = new StateContext();
-            
-            stateContext.interval_id = setInterval(function() { doStateMachine(stateContext); } , 500);
+            };
+            stateContext.interval_id = setInterval(() => doStateMachine(stateContext), 500);
         </script>
     </body>
 </html>

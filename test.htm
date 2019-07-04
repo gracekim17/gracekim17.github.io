@@ -1,0 +1,59 @@
+<html>
+    <script>
+        var state = 0;
+        //var boardingPassState = 0;
+        boardPlaneStateMachine();
+        
+        function boardPlaneStateMachine(){
+            switch(state){
+                case -1:
+                    if(boardingPassState == 3){
+                        state = 0;
+                    }
+                    break;
+                case 0: 
+                    console.log((state + 1) + ". Give boarding pass to airplane staff at designated gate.");
+                    state = -1;
+                    boardingPassStateMachine();
+                    break;
+                case 1: 
+                    console.log((state + 1) + ". Board plane.");
+                    break;
+                case 2: 
+                    console.log((state + 1) + ". Sit down on plane.");
+                    break;
+                default:
+                    console.log("Passenger boarded plane safely and is ready for take-off!!");
+                    return;
+            }
+            switchState();
+        }
+        function switchState(){
+            state++;
+            setTimeout(function() { boardPlaneStateMachine(); }, 500);
+        }
+
+        var boardingPassState = 0;
+        function boardingPassStateMachine(){
+            switch(boardingPassState){
+                case 0:
+                    console.log("\ta. Check identification.");
+                    break;
+                case 1:
+                    console.log("\tb. Verify the identity of the boarding pass and ID are identical.");
+                    break;
+                case 2:
+                    console.log("\tc. Check in any luggage if you need to.");
+                    break;
+                case 3:
+                    console.log("\td. Collect ID and pass from airplane staff.");
+                    return;
+            }
+            switchBoardingPassState();
+        }
+        function switchBoardingPassState(){
+            boardingPassState++;
+            setTimeout(function() { boardingPassStateMachine(); }, 500);
+        }
+    </script>
+</html>

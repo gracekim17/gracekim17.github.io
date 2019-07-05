@@ -44,6 +44,7 @@
             function doStateMachine(stateContext) {
                 switch(stateContext.state) {
                     case stateContext.statePending:
+                        console.log('statePending'); 
                         break;
                     case 0: 
                         console.log('1st state hit');
@@ -51,7 +52,7 @@
                         stateContext.state = stateContext.statePending;
                         doStateMachineAnother(
                             ()=> stateContext.state = nextState);
-                            break;
+                        break;
                     case 1: 
                         console.log('2nd state hit'); 
                         break;

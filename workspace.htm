@@ -1,9 +1,19 @@
 <html>
     <script>
-        function stateMachine() {
-
+        function stateMachineClass() {
+            this.state = 0;
+            this.switchState = function () {
+                this.state++;
+            }
         }
 
-        test = new stateMachine();
+        function stateMachine(stateMachine) {
+            console.log(stateMachine.state);
+            stateMachine.switchState();
+            console.log(stateMachine.state);
+        }
+
+        var testMachine = new stateMachineClass();
+        stateMachine(testMachine);
     </script>
 </html>

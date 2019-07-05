@@ -3,7 +3,7 @@
         var state = 0;
         var state2 = 0;
         
-        function secondStateMachine() {
+        function secondStateMachine(fn) {
             switch(state2){
                 case 0: 
                     console.log("1st hit, 2nd machine");
@@ -12,23 +12,26 @@
                     console.log("2nd hit, 2nd machine");
                     break;
                 case 2:
-                    console.log("2nd machine completed");
+                    console.log("3rd hit, 2nd machine");
+                    break;
+                case 3:
+                    fn();
                     return;
             }
-            secondSwitchState();
+            secondSwitchState(fn);
         }
 
         function stateMachine(){
             switch(state){
                 case -1:
-                    if(state2 == 2) {
-                        state = 1;
+                    if(state2 == 3) {
+                        state = 0;
                     }
                     break;
                 case 0: 
                     console.log("first state");
                     state = -1;
-                    secondStateMachine();
+                    secondStateMachine(completeFn);
                     break;
                 case 1: 
                     console.log("second state");
@@ -43,9 +46,9 @@
             switchState();
         }
 
-        function secondSwitchState() {
+        function secondSwitchState(completeFn) {
             state2++;
-            setTimeout( () => secondStateMachine(), 1000);
+            setTimeout( () => secondStateMachine(completeFn), 1000);
         }
 
         function switchState(){

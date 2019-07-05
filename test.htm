@@ -1,59 +1,64 @@
 <html>
     <script>
         var state = 0;
-        //var boardingPassState = 0;
-        boardPlaneStateMachine();
+        var state2 = 0;
         
-        function boardPlaneStateMachine(){
+        function secondStateMachine() {
+            switch(state2){
+                case 0: 
+                    console.log("1st hit, 2nd machine");
+                    break;
+                case 1:
+                    console.log("2nd hit, 2nd machine");
+                    break;
+                case 2:
+                    console.log("2nd machine completed");
+                    return;
+            }
+            secondSwitchState();
+        }
+
+        function stateMachine(){
             switch(state){
                 case -1:
-                    if(boardingPassState == 3){
-                        state = 0;
+                    if(state2 == 2) {
+                        state = 1;
                     }
                     break;
                 case 0: 
-                    console.log((state + 1) + ". Give boarding pass to airplane staff at designated gate.");
+                    console.log("first state");
                     state = -1;
-                    boardingPassStateMachine();
+                    secondStateMachine();
                     break;
                 case 1: 
-                    console.log((state + 1) + ". Board plane.");
+                    console.log("second state");
                     break;
                 case 2: 
-                    console.log((state + 1) + ". Sit down on plane.");
+                    console.log("third state");
                     break;
-                default:
-                    console.log("Passenger boarded plane safely and is ready for take-off!!");
+                case 3:
+                    console.log("first state machine completed");
                     return;
             }
             switchState();
         }
-        function switchState(){
-            state++;
-            setTimeout(function() { boardPlaneStateMachine(); }, 500);
+
+        function secondSwitchState() {
+            state2++;
+            setTimeout( () => secondStateMachine(), 1000);
         }
 
-        var boardingPassState = 0;
-        function boardingPassStateMachine(){
-            switch(boardingPassState){
-                case 0:
-                    console.log("\ta. Check identification.");
-                    break;
-                case 1:
-                    console.log("\tb. Verify the identity of the boarding pass and ID are identical.");
-                    break;
-                case 2:
-                    console.log("\tc. Check in any luggage if you need to.");
-                    break;
-                case 3:
-                    console.log("\td. Collect ID and pass from airplane staff.");
-                    return;
+        function switchState(){
+            if(state != -1) {
+                state++;
             }
-            switchBoardingPassState();
+            setTimeout( () => stateMachine(), 1000) ;
         }
-        function switchBoardingPassState(){
-            boardingPassState++;
-            setTimeout(function() { boardingPassStateMachine(); }, 500);
+
+        function completeFn(){
+            console.log("2nd machine completed");
         }
+
+        stateMachine();
     </script>
 </html>

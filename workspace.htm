@@ -1,0 +1,14 @@
+<html>
+    <script>
+        function one () {
+            two(completeFn);
+        }
+        function two(fn) {
+            fn();
+        }
+        function completeFn() {
+            console.log("finished.");
+        }
+        one();
+    </script>
+</html>

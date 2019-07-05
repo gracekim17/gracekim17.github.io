@@ -1,6 +1,5 @@
 <html>
     <script>
-        //var state = 0;
         var state2 = 0;
         
         function secondStateMachine(fn) {
@@ -43,19 +42,12 @@
                     console.log("first state machine completed");
                     return;
             }
-            switchState(stateContext);
+            stateContext.switchState(stateContext);
         }
 
         function secondSwitchState(completeFn) {
             state2++;
             setTimeout( () => secondStateMachine(completeFn), 1000);
-        }
-
-        function switchState(stateContext){
-            if(stateContext.state != -1) {
-                stateContext.state++;
-            }
-            setTimeout( () => stateMachine(stateContext), 1000) ;
         }
 
         function completeFn(){
@@ -64,6 +56,12 @@
 
         function StateContext(){
             this.state = 0;
+            this.switchState = function(stateContext) {
+                if(this.state != -1) {
+                    this.state++;
+                }
+                setTimeout( () => stateMachine(stateContext), 1000);
+            }
         }
 
         var stateContext = new StateContext();

@@ -1,0 +1,40 @@
+<html>
+    <script>
+
+        function main() {
+            return new Promise(
+                function(resolve, reject) {
+                    setTimeout(
+                        ()=> { 
+                            try {
+                                console.log('1');
+                                //throw new Error('abc');
+                                resolve();
+                            }
+                            catch
+                            {
+                                reject();
+                            }   
+                        }, 1000)
+                }
+            );
+        }
+
+        async function mmain() {
+            try {
+                await main();
+                console.log('action after success');
+            }
+            catch {
+                console.log('action after fail');
+            }
+
+            main()
+                .then(()=> console.log('action after success'))
+                .catch(()=> console.log('action after fail'))
+        }
+
+        mmain();
+        
+    </script>
+</html>

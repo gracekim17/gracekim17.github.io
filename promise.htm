@@ -4,21 +4,23 @@
     // https://www.promisejs.org/implementing/
 
     async function MMain() {
-
         var state = 0;
         async function Main() {
-            await (new Promise(resolve => {
-                console.log('1'); 
-                setTimeout(() => {
-                    console.log('2');
-                    resolve();
-                }, 3000);}
-            ));
-            console.log('3');
+            var promise;
+            await (
+                promise = (new Promise(resolve => {
+                    console.log('1'); 
+                    setTimeout(() => {
+                            console.log('2');
+                            resolve();
+                        }, 3000);}
+                    )).then(()=>console.log('3'))
+            );
+            promise.then(()=>console.log('5'));
+            console.log('4');
         }
-        Main();
-        Main();
-        console.log('4'); 
+        await (Main().then(()=>console.log('6')));
+        console.log('7'); 
     }
 
     MMain();

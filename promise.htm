@@ -1,0 +1,26 @@
+<html>
+    <script>
+
+    // https://www.promisejs.org/implementing/
+
+    async function MMain() {
+
+        var state = 0;
+        async function Main() {
+            await (new Promise(resolve => {
+                console.log('1'); 
+                setTimeout(() => {
+                    console.log('2');
+                    resolve();
+                }, 3000);}
+            ));
+            console.log('3');
+        }
+        Main();
+        Main();
+        console.log('4'); 
+    }
+
+    MMain();
+    </script>
+</html>

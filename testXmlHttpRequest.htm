@@ -1,0 +1,21 @@
+<html>
+    <body>
+        <div id="viewer">
+                <iframe class="full" style="width:100%; height: 100%; " id="frame" src="data:text/html,"></iframe>
+            </div>
+        </div>
+    </body>
+    <script>
+        function setSrc(value){
+            document.getElementById("frame").src = "data:text/html," + value;
+        }
+
+        const Http = new XMLHttpRequest();
+        Http.open("GET", 'https://gracekim17.github.io/index.html');
+        Http.send();
+        Http.onreadystatechange = (e) => {
+            console.log(Http.responseText);
+            setSrc(Http.responseText);
+        }
+    </script>
+</html>

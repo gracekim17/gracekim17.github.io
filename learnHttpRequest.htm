@@ -1,0 +1,43 @@
+<html>
+    <body>
+        <h1 aria-label="This is the title of the story"> 
+            The cat crossed the road.
+            <!--
+                aria-label provides cues for what a computer narrator should
+                say for things that aren't explicitly stated, so things like
+                headings and images
+            -->
+        </h1>
+    </body>
+    <script>
+        const request = new XMLHttpRequest();
+        // the third parameter in the next line ("true" or "false") indicates whether
+        // this request will be handled asynchronously or not.
+        // asynchronously: start the request/hand it off to the server and move onto whatever else needs to be done on the client end
+        // synchronously: wait until the server sends the final product, and THEN move on to other client actions
+        request.open("GET", "https://jsonplaceholder.typicode.com/todos/1", true);
+        request.send();
+        request.onreadystatechange = function (e) {
+            if(request.readyState == 4){
+                console.log(request.responseText);
+                //console.log("finished");
+            }
+        }
+        
+        //console.log(request.responseText);
+        console.log("finished");
+        //console.log(request);
+    </script>
+</html>
+
+<!--
+    CORS: protocol that establishes security for communication between
+    a browser and multiple "origins" (where "origins" are unique servers).
+    Intended to prevent hackers from manipulating a browser accessing two
+    servers.
+    How it works: Browser acts as a "messenger" to check that the servers it
+    is accessing follow CORS protocol, which would make it safe for the browser
+    to access that server along with others.
+    How to check: click on the "Networks" tab of the debugging window in browsers, 
+    and check for "Access-Control-Allow-Origin" 
+-->

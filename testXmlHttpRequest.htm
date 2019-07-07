@@ -7,6 +7,7 @@
     </body>
     <script>
         function setSrc(value){
+            srcInitialized = true;
             document.getElementById("frame").src = "data:text/html," + value;
         }
 
@@ -14,8 +15,10 @@
         Http.open("GET", 'https://gracekim17.github.io/index.html');
         Http.send();
         Http.onreadystatechange = (e) => {
-            console.log(Http.responseText);
-            setSrc(Http.responseText);
+            const statemachine_completedState = 4;
+            if (Http.readyState == statemachine_completedState) {
+                setSrc(Http.responseText);
+            }
         }
     </script>
 </html>

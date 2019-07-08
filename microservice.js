@@ -1,7 +1,8 @@
 var http = require('http');
 
 function serviceRequest(req, res) {
-    if (req.url.startsWith('/pic')){
+    console.log('trace server 1');
+    if (req.url.startsWith('/pic?')){
         res.writeHead(200, {'Content-Type':'text/html'});
 
         var searchQuery = req.url.replace("/pic?", "");

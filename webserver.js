@@ -4,14 +4,14 @@ function doDoHttpServer(req, res) {
     if (req.url == "/") {
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.end('You requested /. Here is the default document content');
-    } else if (req.url == "/foo") {
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.end(`<html>
-<body>
-<h1>You requested /foo.</h1>
-Here is the response for it
-</body>
-</html>`
+    } else if (req.url == "/test.htm") {
+        res.writeHead(200, {'Content-Type': 'text/html', 'Access-Control-Allow-Origin': 'null'});
+        res.end(`{
+            "me" : {
+                "lastName":"Kim",
+                        "firstName":"Grace"
+            }
+        }`
         );
     } else {
         res.writeHead(404, {'foo': 'bar'});

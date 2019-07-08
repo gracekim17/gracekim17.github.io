@@ -1,23 +1,27 @@
 <html>
-    <iframe id="mypage" style="width:100%; height:50%;"></iframe>
-    <iframe id="mypage2" style="width:100%; height:50%;"></iframe>
+    <body>
+    </body>
     <script>
-
-        function downloadPage(url, id) {
+        function downloadPage(url) {
             const request = new XMLHttpRequest();
             request.open("GET", url);
             request.send();
             request.onreadystatechange = function() {
                 if (request.readyState == 4) {
-                    document.getElementById(id).src = "data:text/html," + request.responseText;
-                    console.log('download done!!!', id);
+                    var dataFromServer = JSON.parse(request.responseText);
+                    console.log(dataFromServer);
+                    document.body.innerHTML = `<html>
+<body>
+<h1>` + dataFromServer.me.firstName +
+`</h1>
+<h2>` + dataFromServer.me.lastName +
+`</h2>
+</body>
+</html>
+                    `;
                 }
             }
         }
-
-        console.log('before');
-        downloadPage("http://localhost/test.htm", "mypage");
-        downloadPage("http://localhost/test.htm", "mypage2");
-        console.log('after');
+        downloadPage("http://localhost/test.htm");
     </script>
 </html>

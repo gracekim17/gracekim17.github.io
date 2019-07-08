@@ -1,0 +1,24 @@
+<html>
+    <body>
+
+    </body>
+    <script>
+        var studentObject = `
+                    {
+                        "school" : {
+                            "name" : "Redmond High School",
+                            "size" : 2000
+                        },
+                        "firstName" : "Grace",
+                        "lastName" : "Kim",
+                        "grade" : 12,
+                        "gpa" : 4.0
+                    }`;
+        var student = JSON.parse(studentObject);
+        student.changeGPA = function(student, newGPA){
+                            student.gpa = newGPA;
+                        }
+        student.changeGPA(student, 1.0);
+        document.body.innerText = "School: " + student.school.name + "\nGPA: " + student.gpa;
+    </script>
+</html>

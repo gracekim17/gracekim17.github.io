@@ -1,0 +1,63 @@
+<html>
+<script>
+    var isConnected = false;
+    var dataReceived = false;
+    var isClosed = false;
+    var socket;
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function waitForConnectionOpened()
+    {
+        while (!isConnected)
+        {
+            await sleep(1000);
+        }
+        socket.send('test data');
+    }
+
+    async function waitForDataReceived()
+    {
+        while (!dataReceived)
+        {
+            await sleep(1000);
+        }
+        socket.close(1000, "Closing sent from clinet");
+    }
+
+    async function waitForConnectionClosed()
+    {
+        while (!isClosed)
+        {
+            await sleep(1000);
+        }
+        console.log("test is completed");
+    }
+
+    async function testWebSocket() {
+        socket = new WebSocket("ws://localhost/websocket/echohandler.ashx");
+        socket.onopen = function (event) {
+            console.log("Connection established");
+            isConnected = true;
+        };
+        socket.onclose = function (event) {
+            console.log("Connection closed");
+            isClosed = true;
+        };
+        socket.onerror = function (event) {
+            console.log("Unknown error!!!");
+        }
+        socket.onmessage = function (event) {
+            console.log(event.data);
+            dataReceived = true;
+        }
+        await waitForConnectionOpened();
+        await waitForDataReceived();
+        await waitForConnectionClosed();
+    }
+
+    testWebSocket();
+</script>    
+</html>
